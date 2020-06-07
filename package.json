@@ -1,0 +1,11 @@
+{
+  "name": "gmail-filter",
+  "version": "1.0.0",
+  "description": "Inbox managing and basic stats report",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "alinasul",
+  "license": "ISC"
+}
