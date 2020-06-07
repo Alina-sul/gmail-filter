@@ -1,2 +1,2 @@
 # gmail-filter
- Inbox managing and stats tracking
+ Inbox managing and basic stats report
