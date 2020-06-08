@@ -79,12 +79,14 @@ function listLabels(auth) {
         if (err) return console.log('The API returned an error: ' + err);
         const labels = res.data.labels;
         if (labels.length) {
-            console.log('Labels:');
-            labels.forEach((label) => {
-                console.log(`- ${label.name}`);
-            });
+            return labels;
+            // console.log('Labels:');
+            // labels.forEach((label) => {
+            //     console.log(`- ${label.name}`);
+            // });
         } else {
             console.log('No labels found.');
         }
     });
 }
+ export {listLabels}
