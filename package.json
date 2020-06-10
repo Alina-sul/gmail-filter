@@ -6,17 +6,22 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ."
+    "start": "nodemon index.js"
   },
   "author": "alinasul",
   "license": "ISC",
   "dependencies": {
     "app": "^0.1.0",
+    "cors": "^2.8.5",
     "create-react-app": "^3.4.1",
+    "express": "^4.17.1",
     "googleapis": "^39.2.0",
     "minimist": "^1.2.3"
   },
   "resolutions": {
     "minimist": "^1.2.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
   }
 }

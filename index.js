@@ -2,6 +2,7 @@ const fs = require('fs');
 const readline = require('readline');
 const {google} = require('googleapis');
 
+
 // If modifying these scopes, delete token.json.
 const SCOPES = ['https://www.googleapis.com/auth/gmail.readonly'];
 // The file token.json stores the user's access and refresh tokens, and is
@@ -41,6 +42,7 @@ function authorize(credentials, callback) {
  * @param {google.auth.OAuth2} oAuth2Client The OAuth2 client to get token for.
  * @param {getEventsCallback} callback The callback for the authorized client.
  */
+
 function getNewToken(oAuth2Client, callback) {
     const authUrl = oAuth2Client.generateAuthUrl({
         access_type: 'offline',
@@ -66,11 +68,6 @@ function getNewToken(oAuth2Client, callback) {
     });
 }
 
-/**
- * Lists the labels in the user's account.
- *
- * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
- */
 function listLabels(auth) {
     const gmail = google.gmail({version: 'v1', auth});
     gmail.users.labels.list({
@@ -79,14 +76,27 @@ function listLabels(auth) {
         if (err) return console.log('The API returned an error: ' + err);
         const labels = res.data.labels;
         if (labels.length) {
-            return labels;
-            // console.log('Labels:');
-            // labels.forEach((label) => {
-            //     console.log(`- ${label.name}`);
-            // });
+            app.get('/test', function (req, res) {
+                res.send(labels[0].id)
+            });
         } else {
-            console.log('No labels found.');
+            return 'no labels here'
         }
     });
 }
- export {listLabels}
+
+const express = require('express');
+const cors = require('cors');
+const app = express();
+const port = 5000;
+
+
+app.use(cors());
+
+//JSON.parse(content), listLabels)
+// app.get('/test', function (req, res) {
+//
+// res.send('hi')
+// });
+
+app.listen(port, () => console.log(`listening at http://localhost:${port}`));
