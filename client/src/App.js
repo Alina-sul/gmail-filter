@@ -5,7 +5,7 @@ import {useQuery} from 'react-query';
 
 const getData = async () => {
   const { data } = await request.get(
-      "http://localhost:5000/test"
+      "http://localhost:5000/messages"
   );
   return data;
 };
@@ -13,6 +13,8 @@ const getData = async () => {
 function App() {
   const [labels, setLabels] = React.useState('');
   const { status, data, error, isFetching } = useQuery("data", getData);
+
+  console.log(data);
 
   return (
     <div className="App">
@@ -23,7 +25,7 @@ function App() {
       ) : (
           <>
             <div>
-              {data}
+              {'Hi'}
             </div>
             <div>{isFetching ? "Background Updating..." : " "}</div>
           </>

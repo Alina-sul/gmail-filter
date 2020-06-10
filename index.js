@@ -1,6 +1,15 @@
 const fs = require('fs');
 const readline = require('readline');
 const {google} = require('googleapis');
+const express = require('express');
+const cors = require('cors');
+const app = express();
+const port = 5000;
+
+
+app.use(cors());
+
+app.listen(port, () => console.log(`listening at http://localhost:${port}`));
 
 
 // If modifying these scopes, delete token.json.
@@ -14,7 +23,8 @@ const TOKEN_PATH = 'token.json';
 fs.readFile('credentials.json', (err, content) => {
     if (err) return console.log('Error loading client secret file:', err);
     // Authorize a client with credentials, then call the Gmail API.
-    authorize(JSON.parse(content), listLabels);
+    authorize(JSON.parse(content), messagesListIDs);
+
 });
 
 /**
@@ -73,11 +83,11 @@ function listLabels(auth) {
     gmail.users.labels.list({
         userId: 'me',
     }, (err, res) => {
-        if (err) return console.log('The API returned an error: ' + err);
+        if (err) return console.log('for listLabels The API returned an error: ' + err);
         const labels = res.data.labels;
         if (labels.length) {
             app.get('/test', function (req, res) {
-                res.send(labels[0].id)
+                res.send(labels)
             });
         } else {
             return 'no labels here'
@@ -85,18 +95,35 @@ function listLabels(auth) {
     });
 }
 
-const express = require('express');
-const cors = require('cors');
-const app = express();
-const port = 5000;
+function messagesListIDs(auth) {
+    const gmail = google.gmail({version: 'v1', auth});
+    gmail.users.messages.list({
+        userId: 'me',
+    }, (err, res) => {
+        if (err) return console.log('for messagesListIDs The API returned an error: ' + err);
+        const messagesIDsList = res.data.messages.map(value => value.id);
+        messagesData(auth, messagesIDsList[0])
 
+        // app.get('/messages', function (req, res) {
+        //         res.send(messages[0])
+        // });
 
-app.use(cors());
+    });
 
-//JSON.parse(content), listLabels)
-// app.get('/test', function (req, res) {
-//
-// res.send('hi')
-// });
+}
 
-app.listen(port, () => console.log(`listening at http://localhost:${port}`));
+function messagesData(auth, id) {
+    const gmail = google.gmail({version: 'v1', auth});
+    gmail.users.messages.get({
+        userId: 'me',
+        id: id
+    }, (err, res) => {
+        if (err) return console.log('for messageData The API returned an error: ' + err);
+        const messageData = res.data.payload.headers;
+        app.get('/messages', function (req, res) {
+                res.send(messageData[15])
+        });
+        console.log(messageData)
+    });
+
+}
