@@ -6,33 +6,19 @@ const cors = require('cors');
 const app = express();
 const port = 5000;
 
-
-app.use(cors());
-
-app.listen(port, () => console.log(`listening at http://localhost:${port}`));
-
-
-// If modifying these scopes, delete token.json.
 const SCOPES = ['https://www.googleapis.com/auth/gmail.readonly'];
-// The file token.json stores the user's access and refresh tokens, and is
-// created automatically when the authorization flow completes for the first
-// time.
 const TOKEN_PATH = 'token.json';
 
-// Load client secrets from a local file.
-fs.readFile('credentials.json', (err, content) => {
-    if (err) return console.log('Error loading client secret file:', err);
-    // Authorize a client with credentials, then call the Gmail API.
-    authorize(JSON.parse(content), messagesListIDs);
+app.use(cors());
+app.listen(port, () => console.log(`listening at http://localhost:${port}`));
 
+fs.readFile('credentials.json', (err, content) => {
+      if (err) return console.log('Error loading client secret file:', err);
+      // Authorize a client with credentials, then call the Gmail API.
+      authorize(JSON.parse(content), messagesList);
 });
 
-/**
- * Create an OAuth2 client with the given credentials, and then execute the
- * given callback function.
- * @param {Object} credentials The authorization client credentials.
- * @param {function} callback The callback to call with the authorized client.
- */
+
 function authorize(credentials, callback) {
     const {client_secret, client_id, redirect_uris} = credentials.installed;
     const oAuth2Client = new google.auth.OAuth2(
@@ -45,14 +31,6 @@ function authorize(credentials, callback) {
         callback(oAuth2Client);
     });
 }
-
-/**
- * Get and store new token after prompting for user authorization, and then
- * execute the given callback with the authorized OAuth2 client.
- * @param {google.auth.OAuth2} oAuth2Client The OAuth2 client to get token for.
- * @param {getEventsCallback} callback The callback for the authorized client.
- */
-
 function getNewToken(oAuth2Client, callback) {
     const authUrl = oAuth2Client.generateAuthUrl({
         access_type: 'offline',
@@ -95,35 +73,71 @@ function listLabels(auth) {
     });
 }
 
-function messagesListIDs(auth) {
+function messagesList(auth) {
     const gmail = google.gmail({version: 'v1', auth});
     gmail.users.messages.list({
         userId: 'me',
     }, (err, res) => {
         if (err) return console.log('for messagesListIDs The API returned an error: ' + err);
         const messagesIDsList = res.data.messages.map(value => value.id);
-        messagesData(auth, messagesIDsList[0])
-
-        // app.get('/messages', function (req, res) {
-        //         res.send(messages[0])
-        // });
-
-    });
-
+        messagesData(auth, messagesIDsList);
+      });
 }
 
-function messagesData(auth, id) {
+function messagesData(auth, list) {
+    console.log(list);
     const gmail = google.gmail({version: 'v1', auth});
-    gmail.users.messages.get({
-        userId: 'me',
-        id: id
-    }, (err, res) => {
-        if (err) return console.log('for messageData The API returned an error: ' + err);
-        const messageData = res.data.payload.headers;
-        app.get('/messages', function (req, res) {
-                res.send(messageData[15])
-        });
-        console.log(messageData)
-    });
 
+    const data = list.map(id => {
+      gmail.users.messages.get({
+          userId: 'me',
+          id: id
+      }, (err, res) => {
+          if (err) return console.log('for messagesListIDs The API returned an error: ' + err);
+          return res.data.payload
+        });
+    });
+    return app.get('/messages', function (req, res) {
+            res.send(data)
+    });
 }
+// function messages(auth) {
+//   const test = async() => {
+//     let list;
+//     try {
+//       list = await messagesList(auth);
+//     } catch (e) {
+//       console.log(e)
+//     }
+//     //messagesData(auth,list);
+//   }
+//       console.log(test())
+//
+//   test();
+// }
+
+
+
+
+// function messagesData(auth, list) {
+//     const gmail = google.gmail({version: 'v1', auth});
+//     const data = async() =>
+//     {
+//         const result = await list.map(id,i => {
+//         gmail.users.messages.get({
+//             userId: 'me',
+//             id: id
+//         }, (err, res) => {
+//             if (err) return console.log('for messageData The API returned an error: ' + err);
+//             return res.data.payload;
+//           console.log(result[i]);
+//
+//         });
+//       });
+//       return result;
+//     }
+//           return app.get('/messages', function (req, res) {
+//                 res.send(data())
+//           });
+//
+// }
