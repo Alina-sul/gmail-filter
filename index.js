@@ -4,19 +4,23 @@ const {google} = require('googleapis');
 const express = require('express');
 const cors = require('cors');
 const app = express();
+app.use(cors());
 const port = 5000;
 
 const SCOPES = ['https://www.googleapis.com/auth/gmail.readonly'];
 const TOKEN_PATH = 'token.json';
 
-app.use(cors());
-app.listen(port, () => console.log(`listening at http://localhost:${port}`));
+
+const route = express.Router();
 
 fs.readFile('credentials.json', (err, content) => {
-      if (err) return console.log('Error loading client secret file:', err);
-      // Authorize a client with credentials, then call the Gmail API.
-      authorize(JSON.parse(content), messagesList);
+    if (err) return console.log('Error loading client secret file:', err);
+    authorize(JSON.parse(content), messagesList);
+
 });
+
+app.use(route);
+app.listen(port, () => console.log(`listening at http://localhost:${port}`));
 
 
 function authorize(credentials, callback) {
@@ -75,32 +79,42 @@ function listLabels(auth) {
 
 function messagesList(auth) {
     const gmail = google.gmail({version: 'v1', auth});
-    gmail.users.messages.list({
+    return gmail.users.messages.list({
         userId: 'me',
     }, (err, res) => {
         if (err) return console.log('for messagesListIDs The API returned an error: ' + err);
         const messagesIDsList = res.data.messages.map(value => value.id);
-        messagesData(auth, messagesIDsList);
+        return messagesData(auth, messagesIDsList);
       });
+
 }
 
 function messagesData(auth, list) {
-    console.log(list);
     const gmail = google.gmail({version: 'v1', auth});
 
-    const data = list.map(id => {
-      gmail.users.messages.get({
-          userId: 'me',
-          id: id
-      }, (err, res) => {
-          if (err) return console.log('for messagesListIDs The API returned an error: ' + err);
-          return res.data.payload
-        });
+    const promises = list.map((id) => {
+        return gmail.users.messages.get({
+            userId: 'me',
+            id
+        }).then(response => response.data);
     });
-    return app.get('/messages', function (req, res) {
-            res.send(data)
-    });
+
+    Promise.all(promises).then(responses =>
+        route.get('/messages', (req, res) => {
+
+            res.send(responses)
+            // const promises = [
+            //     Promise.resolve('alina'),
+            //     Promise.resolve('yuri'),
+            // ]
+            //
+            // Promise.all(promises).then((data) => {
+            //     res.send(data)
+            // })
+        })
+    );
 }
+
 // function messages(auth) {
 //   const test = async() => {
 //     let list;
@@ -115,9 +129,6 @@ function messagesData(auth, list) {
 //
 //   test();
 // }
-
-
-
 
 // function messagesData(auth, list) {
 //     const gmail = google.gmail({version: 'v1', auth});
