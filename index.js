@@ -103,52 +103,10 @@ function messagesData(auth, list) {
         route.get('/messages', (req, res) => {
 
             res.send(responses)
-            // const promises = [
-            //     Promise.resolve('alina'),
-            //     Promise.resolve('yuri'),
-            // ]
-            //
-            // Promise.all(promises).then((data) => {
-            //     res.send(data)
-            // })
+
         })
     );
 }
 
-// function messages(auth) {
-//   const test = async() => {
-//     let list;
-//     try {
-//       list = await messagesList(auth);
-//     } catch (e) {
-//       console.log(e)
-//     }
-//     //messagesData(auth,list);
-//   }
-//       console.log(test())
-//
-//   test();
-// }
 
-// function messagesData(auth, list) {
-//     const gmail = google.gmail({version: 'v1', auth});
-//     const data = async() =>
-//     {
-//         const result = await list.map(id,i => {
-//         gmail.users.messages.get({
-//             userId: 'me',
-//             id: id
-//         }, (err, res) => {
-//             if (err) return console.log('for messageData The API returned an error: ' + err);
-//             return res.data.payload;
-//           console.log(result[i]);
-//
-//         });
-//       });
-//       return result;
-//     }
-//           return app.get('/messages', function (req, res) {
-//                 res.send(data())
-//           });
-//
-// }
+
