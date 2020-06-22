@@ -1,4 +1,2 @@
-# gmail-filter
- Inbox managing and basic stats report
- 
+# gmail-filter 
 * #[tagname] at the end of the input will add a tag to the task
