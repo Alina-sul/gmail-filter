@@ -92,7 +92,7 @@ function messagesList(auth) {
 function messagesData(auth, list) {
     const gmail = google.gmail({version: 'v1', auth});
 
-    const promises = list.map((id) => {
+    let promises = list.map((id) => {
         return gmail.users.messages.get({
             userId: 'me',
             id
@@ -100,13 +100,18 @@ function messagesData(auth, list) {
     });
 
     Promise.all(promises).then(responses =>
-        route.get('/messages', (req, res) => {
+        app.get('/messages', (req, res) => {
 
-            res.send(responses)
+            res.json(responses);
 
         })
     );
 }
 
 
+let promise = new Promise ((res,rej) => {
+    const sum = 2 + 2;
+    res(sum)
+});
 
+promise.then((res) => console.log(res))
