@@ -16,7 +16,8 @@
     "create-react-app": "^3.4.1",
     "express": "^4.17.1",
     "googleapis": "^39.2.0",
-    "minimist": "^1.2.3"
+    "minimist": "^1.2.3",
+    "prop-types": "^15.7.2"
   },
   "resolutions": {
     "minimist": "^1.2.3"

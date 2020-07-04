@@ -1,8 +1,9 @@
 import React from 'react';
 import './App.css';
 import axios from 'axios';
-import './style.sass'
-
+import './style.sass';
+import { MainDashboard } from './Components/MainDashboard';
+import { func } from './Components/Functions'
 
 async function getData() {
     return  axios.get('http://localhost:5000/messages').then((r) => r.data);
@@ -12,13 +13,15 @@ function App() {
   const [messages, setMessages] = React.useState([]);
 
   React.useEffect(() => {
-      getData().then(setMessages);
+      getData().then((res) => {
+          setMessages(func.retrieveRelevantData(res));
+          //setMessages();
+      });
   }, []);
-
-
+console.log(messages);
   return (
     <>
-
+        <MainDashboard messages={messages}/>
     </>
   );
 }
