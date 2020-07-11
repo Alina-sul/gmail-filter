@@ -3,7 +3,7 @@ import './App.css';
 import axios from 'axios';
 import './style.sass';
 import { MainDashboard } from './Components/MainDashboard';
-import { func } from './Components/Functions'
+import {retrieveRelevantData} from './utils';
 
 async function getData() {
     return  axios.get('http://localhost:5000/messages').then((r) => r.data);
@@ -14,7 +14,7 @@ function App() {
 
   React.useEffect(() => {
       getData().then((res) => {
-          setMessages(func.retrieveRelevantData(res));
+          setMessages(Object.values(retrieveRelevantData(res)));
           //setMessages();
       });
   }, []);
