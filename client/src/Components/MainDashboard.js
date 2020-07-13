@@ -7,7 +7,7 @@ function MainDashboard(props) {
 
     return (
         <>
-            <Table title="Brands" data={props.messages}  />
+            <Table title="Brands" data={props.messages} />
         </>
     );
 }

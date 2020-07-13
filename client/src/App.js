@@ -18,7 +18,6 @@ function App() {
           //setMessages();
       });
   }, []);
-console.log(messages);
   return (
     <>
         <MainDashboard messages={messages}/>

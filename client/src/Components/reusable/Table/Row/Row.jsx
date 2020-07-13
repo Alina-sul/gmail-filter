@@ -1,16 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Table = props => {
+const Row = props => {
     return (
-        <div>
-List
-        </div>
+        <tr>
+            {props.children}
+        </tr>
     );
 };
 
-Table.propTypes = {
-
+Row.propTypes = {
+    children: PropTypes.element
 };
 
-export default Table;
+export default Row;

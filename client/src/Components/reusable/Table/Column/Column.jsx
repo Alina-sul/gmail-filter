@@ -1,16 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Table = props => {
+const Column = props => {
     return (
-        <div>
-List
-        </div>
+        <td>
+            Column
+        </td>
     );
 };
 
-Table.propTypes = {
+Column.propTypes = {
 
 };
 
-export default Table;
+export default Column;
