@@ -1,13 +1,19 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import PropTypes, {object} from 'prop-types';
 import Headings from './Headings';
 import Row from './Row';
 import Column from './Column';
+import { descendObjects } from '../../../utils';
 
 const Table = props => {
+    const { data } = props;
+    const [sort, setSort] = React.useState('descending');
+    const [tableData, setTableData] = React.useState([]);
 
-    const {data} = props;
 
+    useEffect(() => {
+       setTableData(descendObjects(data, 'emails'));
+    },[data,sort]);
 
     return (
         <>
@@ -19,11 +25,11 @@ const Table = props => {
                 </thead>
                 <tbody>
                     {
-                        data.map( (x,i) => {
+                        data ? tableData.map( (x,i) => {
                             return <Row key={x.sender}>
-                                <Column data={ x ? Object.values(x) : null } key={`${x.sender}-${Object.keys(x)[i]}`} />
+                                <Column data={ Object.values(x) } key={`${x.sender}-${Object.keys(x)[i]}`} />
                             </Row>
-                        })
+                        }) : null
                     }
                 </tbody>
             </table>
@@ -32,7 +38,9 @@ const Table = props => {
 };
 
 Table.propTypes = {
-    data: PropTypes.arrayOf(PropTypes.shape({}))
+    data: PropTypes.arrayOf(PropTypes.shape({
+        sender: PropTypes.string,
+        emails: PropTypes.arrayOf(PropTypes.object)}))
 };
 
 export default Table;

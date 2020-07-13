@@ -2,6 +2,14 @@ body {
   padding: 20px 50px;
 }
 
+th {
+  text-align: left;
+}
+
+td,th {
+  padding: 5px;
+}
+
 .double-list {
   display: flex;
 }
@@ -9,3 +17,4 @@ body {
 .list {
   margin-right: 15px;
 }
+

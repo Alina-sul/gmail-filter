@@ -1,4 +1,4 @@
-import  { filterPayloadHeaders, retrieveRelevantData } from './arrays';
+import  { filterPayloadHeaders, retrieveRelevantData, descendObjects } from './arrays';
 import  { msToDays, base64ToString } from './convertors';
 
-export { filterPayloadHeaders, retrieveRelevantData, msToDays, base64ToString }
+export { filterPayloadHeaders, retrieveRelevantData, msToDays, base64ToString, descendObjects }

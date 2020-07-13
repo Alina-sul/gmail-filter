@@ -48,8 +48,15 @@ const retrieveRelevantData = (array) => {
         {})
 };
 
+const descendObjects = (array, param , ) => {
+    array.sort(function (a, b) {
+        return b[param].length - a[param].length;
+    });
+    return array;
+};
+
 const cleanSender = (string) => {
     return string.slice(0, string.indexOf('<') - 1).replace(/[^\w\s]/gi, '')
 };
-export { filterPayloadHeaders, retrieveRelevantData };
+export { filterPayloadHeaders, retrieveRelevantData, descendObjects };
 
