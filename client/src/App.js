@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import axios from 'axios';
 import './style.sass';
-import { MainDashboard } from './Components/MainDashboard';
+import MainDashboard from './Components';
 import {retrieveRelevantData} from './utils';
 
 async function getData() {
