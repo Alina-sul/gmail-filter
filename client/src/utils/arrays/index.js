@@ -58,5 +58,46 @@ const descendObjects = (array, param , ) => {
 const cleanSender = (string) => {
     return string.slice(0, string.indexOf('<') - 1).replace(/[^\w\s]/gi, '')
 };
-export { filterPayloadHeaders, retrieveRelevantData, descendObjects };
+
+const createBarData = (array) => {
+    return [{day:'Sunday', count:'2' }]
+};
+
+const calculateWeekDays = (array) => {
+    if(array.length > 1) {
+        let days = [
+            {day: 'Sun', count: 0},
+            {day: 'Mon', count: 0},
+            {day: 'Tue', count: 0},
+            {day: 'Wed', count: 0},
+            {day: 'Thu', count: 0},
+            {day: 'Fri', count: 0},
+            {day: 'Sat', count: 0},
+        ];
+
+        return array.reduce((acc,current) => {
+            current.emails.map((x) => {
+                if(new Date().getDate() - x.date.getDate() <= 7) {
+                    switch (x.date.getDay()) {
+                        case 0 : days[0].count += 1; break;
+                        case 1 : days[1].count += 1; break;
+                        case 2 : days[2].count += 1; break;
+                        case 3 : days[3].count += 1; break;
+                        case 4 : days[4].count += 1; break;
+                        case 5 : days[5].count += 1; break;
+                        case 6 : days[6].count += 1; break;
+                        default: break;
+                    }
+                }
+            });
+
+            acc = days;
+            return acc;
+        },[])
+
+    }
+
+};
+
+export { filterPayloadHeaders, retrieveRelevantData, descendObjects, createBarData, calculateWeekDays };
 

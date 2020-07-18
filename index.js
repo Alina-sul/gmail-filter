@@ -114,4 +114,4 @@ let promise = new Promise ((res,rej) => {
     res(sum)
 });
 
-promise.then((res) => console.log(res))
+promise.then((res) => console.log(res));

@@ -2,6 +2,12 @@ body {
   padding: 20px 50px;
 }
 
+h4 {
+  padding:0;
+  margin-top: 7px;
+  margin-left: 50px;
+  color: #478e95;
+}
 th {
   text-align: left;
 }
@@ -10,11 +16,10 @@ td,th {
   padding: 5px;
 }
 
-.double-list {
+.dashboard {
   display: flex;
 }
 
-.list {
-  margin-right: 15px;
+.charts {
+  display: flex;
 }
-
