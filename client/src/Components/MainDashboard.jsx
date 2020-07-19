@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import Table from './reusable/Table'
-import {BarChart} from './reusable/Charts'
-import {calculateWeekDays} from './../utils';
+import {BarChart, LineChart} from './reusable/Charts'
+import {calculateWeekDays, calculateSendHours} from './../utils';
 
 function MainDashboard(props) {
     const {messages} = props;
@@ -12,9 +12,11 @@ function MainDashboard(props) {
 
     useEffect(() => {
         setChartsData(messages);
+
     },[messages]);
 
-    const barData = chartsData.length > 1 ? calculateWeekDays(chartsData) : [];
+    const weekDaysData = chartsData.length > 1 ? calculateWeekDays(chartsData) : [];
+    const hoursData = chartsData.length > 1 ? Object.values(calculateSendHours(chartsData)) : [];
 
     return (
         <>
@@ -22,10 +24,8 @@ function MainDashboard(props) {
 
             <div className="dashboard">
                 <Table title="Brands" data={messages} />
-                <div className="charts">
-                    <BarChart title="Daily Sends" data={barData} x="day" y="count"/>
-                    <BarChart title="Time Distribution" data={barData} x="day" y="count"/>
-                </div>
+                    <BarChart title="Daily Sends" data={weekDaysData} x="day" y="count"/>
+                    <LineChart title="Time Distribution" data={hoursData} x="time" y="count" />
             </div>
         </>
     );

@@ -11,9 +11,7 @@ const BarChart = props => {
 
             <V.VictoryChart
                 domainPadding={25}
-                tickFormat={(x) => (`$${x / 1000}k`)}
                 scale={{ y: "linear" }}
-
             >
                 <V.VictoryBar
                     style={{ data: { fill: "#67ced6" } }}

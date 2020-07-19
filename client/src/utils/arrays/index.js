@@ -25,7 +25,6 @@ const retrieveRelevantData = (array) => {
     return array.reduce((acc,current) => {
 
         const sender = cleanSender(filterPayloadHeaders(current.payload.headers, 'From').sender);
-
         const currentEmail = {
             id: current.id,
             snippet: current.snippet,
@@ -34,6 +33,7 @@ const retrieveRelevantData = (array) => {
                 current.payload.parts.filter(
                     (x) => x.mimeType === 'text/html') : current.payload.body
         };
+
             if(acc[sender]) {
                          acc[sender].emails = acc[sender].emails.concat([currentEmail]);
                     } else {
@@ -59,9 +59,6 @@ const cleanSender = (string) => {
     return string.slice(0, string.indexOf('<') - 1).replace(/[^\w\s]/gi, '')
 };
 
-const createBarData = (array) => {
-    return [{day:'Sunday', count:'2' }]
-};
 
 const calculateWeekDays = (array) => {
     if(array.length > 1) {
@@ -99,5 +96,29 @@ const calculateWeekDays = (array) => {
 
 };
 
-export { filterPayloadHeaders, retrieveRelevantData, descendObjects, createBarData, calculateWeekDays };
+
+const calculateSendHours = (array) => {
+    if (array.length > 1) {
+        return array.reduce((acc,current) => {
+
+            current.emails.map((email) => {
+
+                const time = email.date.getHours();
+
+                if( acc[time] ){
+                    acc[time].count += 1;
+                } else {
+                    acc[time] = {
+                        time: time,
+                        count: 1
+                    }
+                }
+            });
+            return acc;
+        },{})
+
+    }
+};
+
+export { filterPayloadHeaders, retrieveRelevantData, descendObjects, calculateWeekDays, calculateSendHours };
 

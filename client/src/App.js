@@ -15,7 +15,6 @@ function App() {
   React.useEffect(() => {
       getData().then((res) => {
           setMessages(Object.values(retrieveRelevantData(res)));
-          //setMessages();
       });
   }, []);
   return (
