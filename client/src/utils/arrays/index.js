@@ -100,7 +100,7 @@ const calculateWeekDays = (array) => {
 const calculateSendHours = (array) => {
     if (array.length > 1) {
 
-        return array.reduce((acc,current) => {
+        return Object.values(array.reduce((acc,current) => {
 
             current.emails.map((email) => {
                 if(new Date().getDate() - email.date.getDate() <= 7) {
@@ -118,7 +118,7 @@ const calculateSendHours = (array) => {
             }
             });
             return acc;
-        },{})
+        },{}));
 
     }
 };

@@ -1,9 +1,11 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useContext, useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import Button from "@material-ui/core/Button";
+import {Context} from '../../../context';
 
 const Column = props => {
     const { data, addFilter, index} = props;
+    const context = useContext(Context);
     const [filter, setFilter] = useState(false);
 
     const tdTypeText = useCallback((item) => {
@@ -27,8 +29,10 @@ const Column = props => {
 
         </td>
     },[filter]);
+
     const onClick = useCallback((e) => {
-        console.log(e.target)
+        console.log(e.target);
+        context.setCD([]);
     },[]);
 
 

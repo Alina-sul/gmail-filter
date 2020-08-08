@@ -9,7 +9,6 @@ const Table = props => {
     const { data } = props;
     const [sort, setSort] = React.useState('descending');
 
-    //check
     const tableData = useCallback(() => {
         if(sort === 'descending') {
             return descendObjects(data, 'emails')

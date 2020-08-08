@@ -1,16 +1,18 @@
-import React, {useEffect, useState} from 'react';
-import PropTypes from 'prop-types';
+import React, {useContext, useEffect, useMemo, useState} from 'react';
 import Table from './reusable/Table'
 import {BarChart, LineChart} from './reusable/Charts'
 import {calculateWeekDays, calculateSendHours} from './../utils';
+import {Context} from './context';
 
 function MainDashboard(props) {
 
-    const {messages} = props;
+    const context = useContext(Context);
+    const messages = context.data;
 
+    useEffect(() => {
+        context.getData('messages')
+    },[]);
 
-    const weekDaysData = messages.length > 1 ? calculateWeekDays(messages) : [];
-    const hoursData = messages.length > 1 ? Object.values(calculateSendHours(messages)) : [];
 
     return (
         <>
@@ -18,15 +20,11 @@ function MainDashboard(props) {
 
             <div className="dashboard">
                 <Table title="Brands" data={messages} />
-                <BarChart title="Daily Sends" data={weekDaysData} x="day" y="count"/>
-                <LineChart title="Time Distribution" data={hoursData} x="time" y="count" />
+                <BarChart title="Daily Sends" data={context.weekDaysData} x="day" y="count"/>
+                <LineChart title="Time Distribution" data={context.hoursData} x="time" y="count" />
             </div>
         </>
     );
 }
-
-MainDashboard.propTypes = {
-    messages: PropTypes.arrayOf(PropTypes.object)
-};
 
 export default MainDashboard;
