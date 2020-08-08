@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Headings = props => {
+const Headings = ({data}) => {
 
     return (
         <>
             {
-                props.data.map(x => {
-                    return <th key={`heading-${x}`}>
+                data.map(x => {
+                    return <th className={`heading-${x}`} key={`heading-${x}`}>
                            {x}
                     </th>
                 })

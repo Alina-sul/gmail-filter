@@ -5,27 +5,21 @@ import {BarChart, LineChart} from './reusable/Charts'
 import {calculateWeekDays, calculateSendHours} from './../utils';
 
 function MainDashboard(props) {
+
     const {messages} = props;
 
-    const [chartsData, setChartsData] = useState([]);
 
-
-    useEffect(() => {
-        setChartsData(messages);
-
-    },[messages]);
-
-    const weekDaysData = chartsData.length > 1 ? calculateWeekDays(chartsData) : [];
-    const hoursData = chartsData.length > 1 ? Object.values(calculateSendHours(chartsData)) : [];
+    const weekDaysData = messages.length > 1 ? calculateWeekDays(messages) : [];
+    const hoursData = messages.length > 1 ? Object.values(calculateSendHours(messages)) : [];
 
     return (
         <>
-            <h1>BRANDS EMAILS ACTIVITY</h1>
+            <h1>BRANDS EMAILS ACTIVITY (last 7 days)</h1>
 
             <div className="dashboard">
                 <Table title="Brands" data={messages} />
-                    <BarChart title="Daily Sends" data={weekDaysData} x="day" y="count"/>
-                    <LineChart title="Time Distribution" data={hoursData} x="time" y="count" />
+                <BarChart title="Daily Sends" data={weekDaysData} x="day" y="count"/>
+                <LineChart title="Time Distribution" data={hoursData} x="time" y="count" />
             </div>
         </>
     );

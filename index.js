@@ -109,9 +109,3 @@ function messagesData(auth, list) {
 }
 
 
-let promise = new Promise ((res,rej) => {
-    const sum = 2 + 2;
-    res(sum)
-});
-
-promise.then((res) => console.log(res));

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import './App.css';
 import axios from 'axios';
 import './style.sass';
@@ -10,9 +10,9 @@ async function getData() {
 }
 
 function App() {
-  const [messages, setMessages] = React.useState([]);
+  const [messages, setMessages] = useState([]);
 
-  React.useEffect(() => {
+  useEffect(() => {
       getData().then((res) => {
           setMessages(Object.values(retrieveRelevantData(res)));
       });

@@ -48,7 +48,7 @@ const retrieveRelevantData = (array) => {
         {})
 };
 
-const descendObjects = (array, param , ) => {
+const descendObjects = (array, param ) => {
     array.sort(function (a, b) {
         return b[param].length - a[param].length;
     });
@@ -99,9 +99,11 @@ const calculateWeekDays = (array) => {
 
 const calculateSendHours = (array) => {
     if (array.length > 1) {
+
         return array.reduce((acc,current) => {
 
             current.emails.map((email) => {
+                if(new Date().getDate() - email.date.getDate() <= 7) {
 
                 const time = email.date.getHours();
 
@@ -113,6 +115,7 @@ const calculateSendHours = (array) => {
                         count: 1
                     }
                 }
+            }
             });
             return acc;
         },{})

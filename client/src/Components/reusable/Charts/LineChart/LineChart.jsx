@@ -4,7 +4,6 @@ import * as V from 'victory';
 
 const LineChart = props => {
     const {data, x, y, title, scale} = props;
-    console.log(data)
     return (
         <div>
             <h4>{title}</h4>
