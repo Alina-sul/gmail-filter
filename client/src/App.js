@@ -11,13 +11,7 @@ async function getData() {
 }
 
 function App() {
-  const [messages, setMessages] = useState([]);
 
-  useEffect(() => {
-      getData().then((res) => {
-          setMessages(Object.values(retrieveRelevantData(res)));
-      });
-  }, []);
   return (
     <>
         <Provider>

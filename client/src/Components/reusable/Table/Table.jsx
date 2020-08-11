@@ -18,6 +18,7 @@ const Table = props => {
     },[data]);
 
 
+
     return (
         <>
             <table>

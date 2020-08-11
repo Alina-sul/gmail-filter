@@ -39,3 +39,7 @@ table {
   position: relative;
   z-index: -1;
 }
+
+.selected {
+  background: #67ced6!important;
+}

@@ -6,13 +6,12 @@ import {Context} from '../../../context';
 const Column = props => {
     const { data, addFilter, index} = props;
     const context = useContext(Context);
-    const [filter, setFilter] = useState(false);
 
     const tdTypeText = useCallback((item) => {
 
         return  <td key={index+200}>
             {
-                filter
+                addFilter
                     ?
                 <Button
                     variant="contained"
@@ -28,18 +27,20 @@ const Column = props => {
             }
 
         </td>
-    },[filter]);
+    });
 
     const onClick = useCallback((e) => {
-        console.log(e.target);
-        context.setCD([]);
-    },[]);
 
+        if(e.target.className.includes('selected')){
+            e.target.className = e.target.className.replace(' selected','');
+            context.setSelected(context.selected.filter(x => x !== context.data[e.target.id]));
 
-    useEffect(() => {
-        setFilter(addFilter);
-    },[addFilter]);
+        } else {
+            e.target.className += ' selected';
+            context.setSelected(context.selected.concat([context.data[e.target.id]]));
+        }
 
+    },[context.selected]);
 
     return (
         <>

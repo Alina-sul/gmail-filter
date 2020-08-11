@@ -59,9 +59,8 @@ const cleanSender = (string) => {
     return string.slice(0, string.indexOf('<') - 1).replace(/[^\w\s]/gi, '')
 };
 
-
 const calculateWeekDays = (array) => {
-    if(array.length > 1) {
+    if(array.length > 0) {
         let days = [
             {day: 'Sun', count: 0},
             {day: 'Mon', count: 0},
@@ -96,9 +95,8 @@ const calculateWeekDays = (array) => {
 
 };
 
-
 const calculateSendHours = (array) => {
-    if (array.length > 1) {
+    if (array.length > 0) {
 
         return Object.values(array.reduce((acc,current) => {
 

@@ -8,6 +8,7 @@ function MainDashboard(props) {
 
     const context = useContext(Context);
     const messages = context.data;
+    console.log(context.selected)
 
     useEffect(() => {
         context.getData('messages')

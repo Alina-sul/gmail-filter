@@ -5,20 +5,21 @@ import {calculateSendHours, calculateWeekDays, retrieveRelevantData} from "../..
 
 function Provider(props) {
     const [data, setData] = useState([]);
-    const [chartsData, setCD] = useState(data);
+    const [selected, setSelected] = useState([]);
 
     const getData =  useCallback(async (param) => {
          await Promise.resolve(axios.get(`http://localhost:5000/${param}`))
              .then((r) =>
                  {
                      setData(Object.values(retrieveRelevantData(r.data)));
-                     setCD(Object.values(retrieveRelevantData(r.data)));
                  }
              );
     },[]);
     const chartCalculus = useCallback((func) => {
-        return chartsData.length > 0 ? func(chartsData) : []
-    },[chartsData]);
+       return selected.length > 0 ? func(selected) :
+                data.length > 0 ? func(data) :
+                    []
+    },[selected,data]);
 
     return (
         <Context.Provider
@@ -27,7 +28,8 @@ function Provider(props) {
                     getData: getData,
                     setData: setData,
                     data: data,
-                    setCD: setCD,
+                    setSelected: setSelected,
+                    selected: selected,
                     weekDaysData: chartCalculus(calculateWeekDays),
                     hoursData: chartCalculus(calculateSendHours),
 
