@@ -2,43 +2,22 @@ import React, {useCallback, useContext, useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import Button from "@material-ui/core/Button";
 import {Context} from '../../../context';
+import {Form, Formik} from "formik";
 
 const Column = props => {
-    const { data, addFilter, index} = props;
+    const { data, index} = props;
     const context = useContext(Context);
-
-    const tdTypeText = useCallback((item) => {
-
-        return  <td key={index+200}>
-            {
-                addFilter
-                    ?
-                <Button
-                    variant="contained"
-                    className="filter-button"
-                    fullWidth
-                    id={index}
-                    onClick={onClick}
-                >
-                    {item}
-                </Button>
-                    :
-                    item
-            }
-
-        </td>
-    });
 
     const onClick = useCallback((e) => {
 
-        if(e.target.className.includes('selected')){
-            e.target.className = e.target.className.replace(' selected','');
-            context.setSelected(context.selected.filter(x => x !== context.data[e.target.id]));
-
-        } else {
-            e.target.className += ' selected';
-            context.setSelected(context.selected.concat([context.data[e.target.id]]));
-        }
+        // if(e.target.className.includes('selected')){
+        //     e.target.className = e.target.className.replace(' selected','');
+        //     context.setSelected(context.selected.filter(x => x !== context.data[e.target.id]));
+        //
+        // } else {
+        //     e.target.className += ' selected';
+        //     context.setSelected(context.selected.concat([context.data[e.target.id]]));
+        // }
 
     },[context.selected]);
 
@@ -46,10 +25,21 @@ const Column = props => {
         <>
             {
                 data.map((x) => {
-                    return typeof(x) === 'object' ? <td key={index+100}> {x.length} </td> :
-                        tdTypeText(x)
-                })
+                    return console.log(x);
+                    })
             }
+            <Formik
+                initialValues={{
+
+                }}
+                onSubmit={ (values) => {
+
+                }}
+            >
+                <Form>
+
+                </Form>
+            </Formik>
         </>
     );
 };

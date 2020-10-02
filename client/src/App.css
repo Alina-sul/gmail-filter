@@ -43,3 +43,8 @@ table {
 .selected {
   background: #67ced6!important;
 }
+
+.dis-select {
+  position: absolute!important;
+  top: 95px!important;
+}

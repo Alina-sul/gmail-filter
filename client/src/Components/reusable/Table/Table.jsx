@@ -1,13 +1,18 @@
-import React, {useCallback, useEffect} from 'react';
+import React, {useCallback, useContext, useEffect} from 'react';
 import PropTypes, {object} from 'prop-types';
 import Headings from './Headings';
 import Row from './Row';
 import Column from './Column';
 import { descendObjects } from '../../../utils';
+import CloseIcon from '@material-ui/icons/Close';
+import IconButton from "@material-ui/core/IconButton";
+import {Context} from "../../context";
+
 
 const Table = props => {
     const { data } = props;
     const [sort, setSort] = React.useState('descending');
+    const context = useContext(Context);
 
     const tableData = useCallback(() => {
         if(sort === 'descending') {
@@ -21,6 +26,9 @@ const Table = props => {
 
     return (
         <>
+            <IconButton aria-label="dis-select" className="dis-select" onClick={() => context.setSelected([])}>
+                <CloseIcon />
+            </IconButton>
             <table>
                 <thead>
                     <Row>
@@ -31,7 +39,7 @@ const Table = props => {
                     {
                         data ? tableData().map( (x,i) => {
                             return <Row key={x.sender}>
-                                <Column data={ Object.values(x) } key={`${x.sender}-${Object.keys(x)[i]}`} addFilter={true} index={i}/>
+                                <Column data={ Object.values(x) } key={`${x.sender}-${Object.keys(x)[i]}`} index={i}/>
                             </Row>
                         }) : null
                     }
