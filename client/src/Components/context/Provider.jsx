@@ -16,6 +16,10 @@ function Provider(props) {
              );
     },[]);
 
+    useEffect(() => {
+        setSelected(data);
+    },[data]);
+
     const chartCalculus = useCallback((func) => {
        return selected.length > 0 ? func(selected) :
                 data.length > 0 ? func(data) :

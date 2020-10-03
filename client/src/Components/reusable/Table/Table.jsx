@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useEffect} from 'react';
+import React, {useCallback, useContext, useEffect, useState} from 'react';
 import PropTypes, {object} from 'prop-types';
 import Headings from './Headings';
 import Row from './Row';
@@ -11,22 +11,22 @@ import {Context} from "../../context";
 
 const Table = props => {
     const { data } = props;
-    const [sort, setSort] = React.useState('descending');
+    const [sort, setSort] = useState('descending');
     const context = useContext(Context);
 
-    const tableData = useCallback(() => {
-        if(sort === 'descending') {
-            return descendObjects(data, 'emails')
-        } else {
-            console.log('should be ascending data')
-        }
-    },[data]);
+    // const tableData = useCallback(() => {
+    //     if(sort === 'descending') {
+    //         return descendObjects(data, 'emails')
+    //     } else {
+    //         console.log('should be ascending data')
+    //     }
+    // },[data]);
 
 
 
     return (
         <>
-            <IconButton aria-label="dis-select" className="dis-select" onClick={() => context.setSelected([])}>
+            <IconButton aria-label="dis-select" className="dis-select" onClick={() => context.setSelected(context.data)}>
                 <CloseIcon />
             </IconButton>
             <table>
@@ -37,9 +37,13 @@ const Table = props => {
                 </thead>
                 <tbody>
                     {
-                        data ? tableData().map( (x,i) => {
+                        data ? context.data.map( (x,i) => {
                             return <Row key={x.sender}>
-                                <Column data={ Object.values(x) } key={`${x.sender}-${Object.keys(x)[i]}`} index={i}/>
+                                <Column data={ Object.values(x) }
+                                        key={`${x.sender}-${Object.keys(x)[i]}`}
+                                        index={i}
+                                        addClass={context.selected.includes(x) ? 'selected' : ''}
+                                />
                             </Row>
                         }) : null
                     }
