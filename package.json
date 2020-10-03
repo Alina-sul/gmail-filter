@@ -21,7 +21,8 @@
   },
   "resolutions": {
     "minimist": "^1.2.3",
-    "lodash": "^4.17.19"
+    "lodash": "^4.17.19",
+    "node-forge": "^0.10.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.4"
