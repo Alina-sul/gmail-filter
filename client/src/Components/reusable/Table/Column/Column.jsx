@@ -9,10 +9,9 @@ const Column = props => {
     const context = useContext(Context);
 
     const onClick = useCallback((e) => {
-        console.log();
-        context.setSelected([context.data[index]])
-
-    },[context.selected]);
+        context.setSelected([context.data[index]]);
+        context.setSelectAll(false);
+    },[context.selected,context.selectAll]);
 
     return (
         <>

@@ -6,6 +6,7 @@ import {calculateSendHours, calculateWeekDays, retrieveRelevantData} from "../..
 function Provider(props) {
     const [data, setData] = useState([]);
     const [selected, setSelected] = useState([]);
+    const [selectAll, setSelectAll] = useState(true);
 
     const getData =  useCallback(async (param) => {
          await Promise.resolve(axios.get(`http://localhost:5000/${param}`))
@@ -16,9 +17,13 @@ function Provider(props) {
              );
     },[]);
 
-    useEffect(() => {
-        setSelected(data);
-    },[data]);
+    useEffect(() =>
+        {
+            if(selectAll) {
+                setSelected(data)
+            }
+        } ,
+        [data,selectAll]);
 
     const chartCalculus = useCallback((func) => {
        return selected.length > 0 ? func(selected) :
@@ -35,6 +40,8 @@ function Provider(props) {
                     data: data,
                     setSelected: setSelected,
                     selected: selected,
+                    selectAll: selectAll,
+                    setSelectAll: setSelectAll,
                     weekDaysData: chartCalculus(calculateWeekDays),
                     hoursData: chartCalculus(calculateSendHours),
 

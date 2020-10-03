@@ -26,7 +26,7 @@ const Table = props => {
 
     return (
         <>
-            <IconButton aria-label="dis-select" className="dis-select" onClick={() => context.setSelected(context.data)}>
+            <IconButton aria-label="dis-select" className="dis-select" onClick={() => context.setSelectAll(true)}>
                 <CloseIcon />
             </IconButton>
             <table>
