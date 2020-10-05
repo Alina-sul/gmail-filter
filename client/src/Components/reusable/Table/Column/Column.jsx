@@ -5,35 +5,49 @@ import {Context} from '../../../context';
 
 
 const Column = props => {
-    const { data, index, addClass} = props;
+    const { sender, emails, index, addClass} = props;
     const context = useContext(Context);
 
+
     const onClick = useCallback((e) => {
-        context.setSelected([context.data[index]]);
+        
         context.setSelectAll(false);
+
+        if(context.selected.includes(context.data[index])) {
+            if(!context.selectAll) {
+
+                const value = context.selected.filter((x) => x !== context.data[index]);
+
+                if(value.length) {
+                    context.setSelected(value);
+                }
+
+            } else {
+                context.setSelected([context.data[index]]);
+            }
+        } else {
+            context.setSelected(context.selected.concat([context.data[index]]));
+        }
+
     },[context.selected,context.selectAll]);
 
     return (
         <>
-            {
-                data.map((x) => {
-                    return typeof (x) === 'object' ? <td key={index + 100}> {x.length} </td> :
-                        <td key={index + 200}>
+                <td>
                             {
                                 <Button
                                     variant="contained"
                                     fullWidth
                                     className={`filter-button ${addClass}`}
-                                    id={x}
+                                    id={sender}
                                     onClick={onClick}
                                 >
-                                    {x}
+                                    {sender}
                                 </Button>
                             }
-
                         </td>
-                })
-            }
+            <td> {emails.length} </td>
+
         </>
     );
 };

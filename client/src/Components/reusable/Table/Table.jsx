@@ -10,7 +10,6 @@ import {Context} from "../../context";
 
 
 const Table = props => {
-    const { data } = props;
     const [sort, setSort] = useState('descending');
     const context = useContext(Context);
 
@@ -32,14 +31,15 @@ const Table = props => {
             <table>
                 <thead>
                     <Row>
-                        <Headings data={ data[0] ? Object.keys(data[0]) : [] } />
+                        <Headings data={ context.data[0] ? Object.keys(context.data[0]) : [] } />
                     </Row>
                 </thead>
                 <tbody>
                     {
-                        data ? context.data.map( (x,i) => {
+                        context.data ? context.data.map( (x,i) => {
                             return <Row key={x.sender}>
-                                <Column data={ Object.values(x) }
+                                <Column sender={x.sender}
+                                        emails={x.emails}
                                         key={`${x.sender}-${Object.keys(x)[i]}`}
                                         index={i}
                                         addClass={context.selected.includes(x) ? 'selected' : ''}
