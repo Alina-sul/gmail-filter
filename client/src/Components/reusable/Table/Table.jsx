@@ -3,6 +3,7 @@ import PropTypes, {object} from 'prop-types';
 import Headings from './Headings';
 import Row from './Row';
 import Column from './Column';
+import SelectAllIcon from '@material-ui/icons/SelectAll';
 import { descendObjects } from '../../../utils';
 import CloseIcon from '@material-ui/icons/Close';
 import IconButton from "@material-ui/core/IconButton";
@@ -26,13 +27,14 @@ const Table = props => {
     return (
         <>
             <IconButton aria-label="dis-select" className="dis-select" onClick={() => context.setSelectAll(true)}>
-                <CloseIcon />
+                <SelectAllIcon />
             </IconButton>
             <table>
                 <thead>
                     <Row>
                         <Headings data={ context.data[0] ? Object.keys(context.data[0]) : [] } />
                     </Row>
+
                 </thead>
                 <tbody>
                     {

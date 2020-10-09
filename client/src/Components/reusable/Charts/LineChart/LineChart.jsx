@@ -1,13 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import * as V from 'victory';
+import {max} from "../../../../utils";
 
 const LineChart = props => {
     const {data, x, y, title, scale} = props;
     return (
         <div>
             <h4>{title}</h4>
-
+            <div className="average">
+                Most common send time: {max(data,'count','time',data.length)}
+            </div>
             <V.VictoryChart
                 domainPadding={0}
                 scale={ scale }

@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import Context from "./Context";
 import axios from "axios";
-import {calculateSendHours, calculateWeekDays, retrieveRelevantData} from "../../utils/arrays";
+import {calculateSendHours, calculateWeekDays, descendObjects, retrieveRelevantData} from "../../utils/arrays";
 
 function Provider(props) {
     const [data, setData] = useState([]);
@@ -26,9 +26,11 @@ function Provider(props) {
         [data,selectAll]);
 
     const chartCalculus = useCallback((func) => {
-       return selected.length > 0 ? func(selected) :
+
+        return selected.length > 0 ? func(selected) :
                 data.length > 0 ? func(data) :
                     []
+
     },[selected,data]);
 
     return (
@@ -44,7 +46,6 @@ function Provider(props) {
                     setSelectAll: setSelectAll,
                     weekDaysData: chartCalculus(calculateWeekDays),
                     hoursData: chartCalculus(calculateSendHours),
-
                 }
             }
         >

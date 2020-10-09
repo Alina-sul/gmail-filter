@@ -104,7 +104,6 @@ const calculateSendHours = (array) => {
                 if(new Date().getDate() - email.date.getDate() <= 7) {
 
                 const time = email.date.getHours();
-
                 if( acc[time] ){
                     acc[time].count += 1;
                 } else {
@@ -113,7 +112,7 @@ const calculateSendHours = (array) => {
                         count: 1
                     }
                 }
-            }
+                }
             });
             return acc;
         },{}));
@@ -121,5 +120,21 @@ const calculateSendHours = (array) => {
     }
 };
 
-export { filterPayloadHeaders, retrieveRelevantData, descendObjects, calculateWeekDays, calculateSendHours };
+const average = (array,param,divNum) => {
+    const sum = array.length > 0 ? array.reduce((acc,val) => {
+        return acc + val[param]
+    },0) : null;
+    return (sum/divNum).toFixed(2)
+};
+
+const max =  (array,param,id) => {
+    return array.length > 0 ? array.reduce((acc,val) => {
+        if(acc < val[param]) {
+            acc = val[id]
+        }
+        return acc;
+    },0) : null;
+};
+
+export { max, filterPayloadHeaders, retrieveRelevantData, descendObjects, calculateWeekDays, calculateSendHours, average };
 

@@ -6,30 +6,29 @@ import {Context} from '../../../context';
 
 const Column = props => {
     const { sender, emails, index, addClass} = props;
-    const context = useContext(Context);
+    const {data,setSelectAll,selectAll,selected,setSelected} = useContext(Context);
 
 
     const onClick = useCallback((e) => {
-        
-        context.setSelectAll(false);
+        setSelectAll(false);
 
-        if(context.selected.includes(context.data[index])) {
-            if(!context.selectAll) {
+        if(selected.includes(data[index])) {
+            if(!selectAll) {
 
-                const value = context.selected.filter((x) => x !== context.data[index]);
+                const value = selected.filter((x) => x !== data[index]);
 
                 if(value.length) {
-                    context.setSelected(value);
+                   setSelected(value);
                 }
 
             } else {
-                context.setSelected([context.data[index]]);
+                setSelected([data[index]]);
             }
         } else {
-            context.setSelected(context.selected.concat([context.data[index]]));
+            setSelected(selected.concat([data[index]]));
         }
 
-    },[context.selected,context.selectAll]);
+    },[selected,selectAll]);
 
     return (
         <>

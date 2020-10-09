@@ -1,4 +1,4 @@
-import  { calculateSendHours, filterPayloadHeaders, retrieveRelevantData, descendObjects, calculateWeekDays } from './arrays';
+import  { max, calculateSendHours, filterPayloadHeaders, retrieveRelevantData, descendObjects, calculateWeekDays,average } from './arrays';
 import  { msToDays, base64ToString } from './convertors';
 
-export { filterPayloadHeaders, retrieveRelevantData, msToDays, base64ToString, descendObjects, calculateWeekDays, calculateSendHours };
+export { max, filterPayloadHeaders, retrieveRelevantData, msToDays, base64ToString, descendObjects, calculateWeekDays, calculateSendHours, average };
