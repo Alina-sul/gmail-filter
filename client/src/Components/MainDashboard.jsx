@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useMemo, useState} from 'react';
-import Table from './reusable/Table'
-import {BarChart, LineChart} from './reusable/Charts'
+import Table from './main/Table'
+import {BarChart, LineChart} from './main/Charts'
 import {Context} from './context';
 
 function MainDashboard(props) {

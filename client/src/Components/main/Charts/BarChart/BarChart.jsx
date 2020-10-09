@@ -9,7 +9,7 @@ const BarChart = props => {
         <div>
             <h4>{title}</h4>
             <div className="average">
-            Avg. sends per day: {average(data,'count',data.length)}
+            Avg. emails per day: {average(data,'count',data.length)}
             </div>
             <VictoryChart
                 domainPadding={25}

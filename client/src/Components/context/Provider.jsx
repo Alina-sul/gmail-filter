@@ -12,7 +12,7 @@ function Provider(props) {
          await Promise.resolve(axios.get(`http://localhost:5000/${param}`))
              .then((r) =>
                  {
-                     setData(Object.values(retrieveRelevantData(r.data)));
+                     setData(descendObjects((Object.values(retrieveRelevantData(r.data))),'emails'))
                  }
              );
     },[]);

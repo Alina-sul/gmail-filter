@@ -10,7 +10,6 @@ const Headings = ({data}) => {
 
     const handleClick = useCallback(async () => {
         //const ascending =  descendObjects(context.data, 'emails')
-        debugger
         if(sort === 'descending') {
             context.setData(descendObjects(context.data, 'emails'));
         } else {
