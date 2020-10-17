@@ -128,12 +128,16 @@ const average = (array,param,divNum) => {
 };
 
 const max =  (array,param,id) => {
-    return array.length > 0 ? array.reduce((acc,val) => {
-        if(acc < val[param]) {
-            acc = val[id]
-        }
-        return acc;
-    },0) : null;
+    return array.length ? array.reduce((acc,val) => {
+            if(acc[param] < val[param]) {
+                acc = val;
+            }
+            return acc
+        }, {
+        [id]: 0,
+        [param]: 0
+    })
+        : null;
 };
 
 export { max, filterPayloadHeaders, retrieveRelevantData, descendObjects, calculateWeekDays, calculateSendHours, average };

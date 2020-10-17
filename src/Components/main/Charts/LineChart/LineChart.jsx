@@ -5,11 +5,13 @@ import {max} from "../../../../utils";
 
 const LineChart = props => {
     const {data, x, y, title, scale} = props;
+    let commonTime = data.length ? max(data,'count','time') : {time: 0, count: 0};
+
     return (
         <div>
             <h4>{title}</h4>
             <div className="average">
-                Most common send time: {max(data,'count','time',data.length)}
+                Most common send time: {commonTime.time}
             </div>
             <V.VictoryChart
                 domainPadding={0}
