@@ -13,7 +13,10 @@ function MainDashboard(props) {
 
     return (
         <>
-            <h1>BRANDS EMAILS ACTIVITY (last 7 days)</h1>
+            <div className="main-title">
+                <h1>INBOX ANALYSIS BY SENDER NAME</h1>
+                <span>(last 7 days, 99 emails max)</span>
+            </div>
             <div className="dashboard">
                 <Table title="Brands" />
                 <div className="dashboard">

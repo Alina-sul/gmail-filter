@@ -53,3 +53,12 @@ table {
 {
   height: auto!important;
 }
+
+.main-title {
+  display: flex;
+}
+
+.main-title span {
+  display: block;
+  padding: 2em;
+}
