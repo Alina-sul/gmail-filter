@@ -8,34 +8,29 @@ function Provider(props) {
     const [selected, setSelected] = useState([]);
     const [selectAll, setSelectAll] = useState(true);
 
-    const getData =  useCallback(async (param) => {
-         await Promise.resolve(axios.get(`http://localhost:5000/${param}`))
-             .then((r) =>
-                 {
-                     setData(descendObjects((Object.values(retrieveRelevantData(r.data))),'emails'))
-                 }
-             );
-    },[]);
+    const getData = useCallback((param) => {
+        return axios.get(`http://localhost:5000/${param}`)
+            .then((res) => {
+                setData(descendObjects((Object.values(retrieveRelevantData(res.data))), 'emails'))
+            });
+    }, []);
 
-    useEffect(() =>
-        {
-            if(selectAll) {
+    useEffect(() => {
+            if (selectAll) {
                 setSelected(data)
             }
-        } ,
-        [data,selectAll]);
+        },
+        [data, selectAll]);
 
     const chartCalculus = useCallback((func) => {
+        return selected.length ? func(selected) :
+            data.length ? func(data) : []
 
-        return selected.length > 0 ? func(selected) :
-                data.length > 0 ? func(data) :
-                    []
-
-    },[selected,data]);
+    }, [selected, data]);
 
     return (
         <Context.Provider
-            value = {
+            value={
                 {
                     getData: getData,
                     setData: setData,

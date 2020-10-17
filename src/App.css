@@ -48,3 +48,8 @@ table {
   position: absolute!important;
   top: 95px!important;
 }
+
+.VictoryContainer
+{
+  height: auto!important;
+}

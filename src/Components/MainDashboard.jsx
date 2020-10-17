@@ -7,8 +7,6 @@ function MainDashboard(props) {
 
     const {getData,weekDaysData,hoursData} = useContext(Context);
 
-
-
     useEffect(() => {
       getData('messages');
     },[]);

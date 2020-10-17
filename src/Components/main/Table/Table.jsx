@@ -4,8 +4,8 @@ import Headings from './Headings';
 import Row from './Row';
 import Column from './Column';
 import SelectAllIcon from '@material-ui/icons/SelectAll';
-import { descendObjects } from '../../../utils';
-import CloseIcon from '@material-ui/icons/Close';
+//import { descendObjects } from '../../../utils';
+//import CloseIcon from '@material-ui/icons/Close';
 import IconButton from "@material-ui/core/IconButton";
 import {Context} from "../../context";
 
@@ -22,10 +22,11 @@ const Table = props => {
     //     }
     // },[data]);
 
-
+    //TODO create handler useCallback
 
     return (
         <>
+
             <IconButton aria-label="dis-select" className="dis-select" onClick={() => context.setSelectAll(true)}>
                 <SelectAllIcon />
             </IconButton>
